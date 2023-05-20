@@ -3,10 +3,10 @@ const router = express.Router();
 const ApplicationController = require("../controllers/applicationContoller");
 const applicationContoller = new ApplicationController();
 const { multerUploader } = require("../middleware/multerUpload");
-
+const { verifyOwnerShip } = require("../middleware/verifyOwnership");
 router
-  .route("/")
-  .get()
+  .route("/:id")
+  .get(verifyOwnerShip, applicationContoller.getAppliction)
   .post(
     multerUploader.fields([
       { name: "cv", maxCount: 1 },

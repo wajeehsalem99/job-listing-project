@@ -1,10 +1,11 @@
 const { dataUri } = require("../middleware/multerUpload");
-const uploader = require("../middleware/cloudinaryUpload");
+const uploader = require("../middleware/upload");
 const ApllicationServices = require("../services/applicationservices");
 const applicationservices = new ApllicationServices();
 
 module.exports = class ApplicationController {
   async apply(req, res, next) {
+    const { id } = req.params;
     try {
       if (!req.files) return res.status(400).send("you need to upload resume");
       const files = dataUri(req);
@@ -19,11 +20,21 @@ module.exports = class ApplicationController {
         })
       );
 
-      const application = await applicationservices.createApplication({
+      const application = await applicationservices.createApplication(id, {
         ...req.body,
         documents: documents,
       });
       res.status(200).json(application);
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
+  async getAppliction(req, res, next) {
+    try {
+      const { id } = req.params;
+      const applictions = await applicationservices.getJobApplication(id);
+      res.status(200).json(applictions);
     } catch (e) {
       console.log(e);
     }
