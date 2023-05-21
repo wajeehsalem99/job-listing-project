@@ -24,5 +24,5 @@ const Job = sequlize.define("Job", {
     type: DataTypes.STRING,
   },
 });
-
+Job.prototype.isOwnedById = (id) => this.EmployerId === id;
 module.exports = Job;

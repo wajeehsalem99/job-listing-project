@@ -4,9 +4,18 @@ const {
   getjobs,
   updateJobController,
   searchAllJobs,
+  createjob,
+  getSpecificJob,
+  deleteJobController,
 } = require("../controllers/jobController");
-
-router.route("/").get(getjobs).post().put(updateJobController);
+const { verifyOwnerShip } = require("../middleware/verifyOwnership");
+router.route("/").get(getjobs).post(createjob);
 router.get("/search", searchAllJobs);
+
+router
+  .route("/:id")
+  .get(getSpecificJob)
+  .put(verifyOwnerShip, updateJobController)
+  .delete(verifyOwnerShip, deleteJobController);
 
 module.exports = router;

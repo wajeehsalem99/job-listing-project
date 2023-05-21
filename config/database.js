@@ -10,7 +10,7 @@ Application.hasMany(Document, { as: "documents" });
 
 module.exports = () => {
   sequelize
-    .sync({ force: true })
+    .sync({ force: false })
     .then(async (result) => {
       const employer = await Employer.create({
         name: "laith",

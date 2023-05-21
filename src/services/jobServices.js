@@ -1,18 +1,28 @@
 const Job = require("../models/Job");
 const { Op } = require("sequelize");
+const Employer = require("../models/Client");
 
 const findAllJobs = async (filters) => {
   const filtersQuery = createFiltersQuery(filters);
   return await Job.findAll(filtersQuery);
 };
 
-const createNewJob = async (job) => {
-  return await Job.create(job);
+const createNewJob = async (id, job) => {
+  const employer = await Employer.findOne({ id });
+  console.log(employer);
+  if (!employer) return;
+  return await employer.createJob(job);
 };
 
-const deleteJob = async (id) => {
-  return await Job.destroy({ where: { id } });
+const deleteJob = async (employerId, jobId) => {
+  //   const employer = await Employer.findByPk(employerId);
+  //   if (!employer) throw new Error("employer with specific id doesnt exists");
+  //   if (!employer.hasJob({ where: { id: jobId } }))
+  //     throw new Error("unautharized operation ");
+
+  return await Job.destroy({ where: { id: jobId } });
 };
+
 const searchJobs = async (search) => {
   return await Job.findAll({
     where: {
@@ -47,8 +57,17 @@ const searchJobs = async (search) => {
   });
 };
 
-const updateJob = async (id, values) => {
-  return await Job.update(values, { where: { id } });
+const updateJob = async (employerId, jobId, job) => {
+  //   const employer = await Employer.findByPk(employerId);
+  //   if (!employer) throw new Error("employer with specific id doesnt exists");
+  //   if (!employer.hasJob({ where: { id: jobId } }))
+  //     throw new Error("unautharized operation ");
+
+  return await Job.update(job, { where: { id: jobId } });
+};
+
+const getJob = async (id) => {
+  return await Job.findByPk(id);
 };
 
 const createFiltersQuery = (filters) => {
@@ -80,4 +99,5 @@ module.exports = {
   deleteJob,
   searchJobs,
   updateJob,
+  getJob,
 };
