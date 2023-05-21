@@ -8,7 +8,7 @@ const findAllJobs = async (filters) => {
 };
 
 const createNewJob = async (id, job) => {
-  const employer = await Employer.findOne({ id });
+  const employer = await Employer.findByPk(id);
   console.log(employer);
   if (!employer) return;
   return await employer.createJob(job);

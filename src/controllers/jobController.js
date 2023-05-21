@@ -12,7 +12,8 @@ const getjobs = async (req, res, next) => {
     const jobs = await findAllJobs(req.query);
     return res.status(200).json(jobs);
   } catch (e) {
-next(e);  }
+    next(e);
+  }
 };
 
 const getSpecificJob = async (req, res, next) => {
@@ -21,7 +22,8 @@ const getSpecificJob = async (req, res, next) => {
     const job = await getJob(id);
     res.status(200).json(job);
   } catch (e) {
-    next(e);  }
+    next(e);
+  }
 };
 
 const searchAllJobs = async (req, res, next) => {
@@ -31,7 +33,8 @@ const searchAllJobs = async (req, res, next) => {
 
     return res.status(200).json(jobs);
   } catch (e) {
-    next(e);  }
+    next(e);
+  }
 };
 
 const updateJobController = async (req, res, next) => {
@@ -43,18 +46,20 @@ const updateJobController = async (req, res, next) => {
     await updateJob(employerId, id, jobToUpdate);
     return res.status(200).json({ msg: "succesfully updated job " });
   } catch (e) {
-    next(e);  }
+    next(e);
+  }
 };
 
 const createjob = async (req, res, next) => {
   try {
-    const { Employerid } = req.query;
+    const { EmployerId } = req.query;
     const job = req.body;
 
-    const createdJob = await createNewJob(Employerid, job);
+    const createdJob = await createNewJob(EmployerId, job);
     res.status(200).json(createdJob);
   } catch (e) {
-    next(e);  }
+    next(e);
+  }
 };
 const deleteJobController = async (req, res, next) => {
   const { employerId } = req.query;
@@ -63,7 +68,8 @@ const deleteJobController = async (req, res, next) => {
     const job = await deleteJob(employerId, id);
     res.status(200).json(job);
   } catch (e) {
-    next(e);  }
+    next(e);
+  }
 };
 
 module.exports = {
