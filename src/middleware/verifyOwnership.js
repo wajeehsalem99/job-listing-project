@@ -2,6 +2,7 @@ const Employer = require("../models/Client");
 const Job = require("../models/Job");
 
 const verifyOwnerShip = async (req, res, next) => {
+  try{
   const { employerId } = req.query;
   const { id } = req.params;
   const job = await Job.findByPk(id);
@@ -12,6 +13,8 @@ const verifyOwnerShip = async (req, res, next) => {
   if (!isOwnedByEmplyer) throw new Error("unautharized operation ");
 
   next();
+}catch(e){
+next(e);}
 };
 
 module.exports = { verifyOwnerShip };

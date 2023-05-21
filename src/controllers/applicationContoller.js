@@ -26,8 +26,7 @@ module.exports = class ApplicationController {
       });
       res.status(200).json(application);
     } catch (e) {
-      console.log(e);
-    }
+next(e);    }
   }
 
   async getAppliction(req, res, next) {
@@ -36,7 +35,6 @@ module.exports = class ApplicationController {
       const applictions = await applicationservices.getJobApplication(id);
       res.status(200).json(applictions);
     } catch (e) {
-      console.log(e);
-    }
+next(e);    }
   }
 };

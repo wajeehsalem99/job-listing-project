@@ -14,6 +14,11 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use("/jobs", jobRoutes);
 app.use("/apply", apllicationRoutes);
 
+app.use((err, req, res, next) => {
+    console.error(err.stack)
+    res.status(400).json({error:err.stack})
+  })
+
 // const cpUpload = upload.fields([
 //   { name: "cv", maxCount: 1 },
 //   { name: "cover", maxCount: 1 },
