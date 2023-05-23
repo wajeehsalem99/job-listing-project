@@ -5,6 +5,7 @@ const bcrypt = require("bcrypt");
 const sginUp = async (req, res, next) => {
   try {
     const user = req.body;
+    user.password = await bcrypt.hash(user.password, 10);
     const { id, email } = await Employer.create(user);
 
     const token = await jwt.sign({ id, email }, process.env.JWT_SECRET);
@@ -33,4 +34,4 @@ const sginIn = async (req, res, next) => {
     next(e);
   }
 };
-module.exports={sginIn,sginUp}
+module.exports = { sginIn, sginUp };

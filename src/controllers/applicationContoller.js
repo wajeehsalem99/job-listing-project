@@ -26,15 +26,20 @@ module.exports = class ApplicationController {
       });
       res.status(200).json(application);
     } catch (e) {
-next(e);    }
+      next(e);
+    }
   }
 
   async getAppliction(req, res, next) {
     try {
-      const { id } = req.params;
-      const applictions = await applicationservices.getJobApplication(id);
+      const employerId = res.employerId;
+      // const { id } = req.params;
+      const applictions = await applicationservices.getJobApplication(
+        employerId
+      );
       res.status(200).json(applictions);
     } catch (e) {
-next(e);    }
+      next(e);
+    }
   }
 };

@@ -39,7 +39,7 @@ const searchAllJobs = async (req, res, next) => {
 
 const updateJobController = async (req, res, next) => {
   try {
-    const { employerId } = req.query;
+    const employerId = res.employerId;
     const { id } = req.params;
     const jobToUpdate = req.body;
 
@@ -52,7 +52,10 @@ const updateJobController = async (req, res, next) => {
 
 const createjob = async (req, res, next) => {
   try {
-    const { EmployerId } = req.query;
+    // const EmployerId = req.query;
+
+    const EmployerId = res.employerId;
+    console.log(EmployerId);
     const job = req.body;
 
     const createdJob = await createNewJob(EmployerId, job);
@@ -62,7 +65,7 @@ const createjob = async (req, res, next) => {
   }
 };
 const deleteJobController = async (req, res, next) => {
-  const { employerId } = req.query;
+  const employerId = res.employerId;
   const { id } = req.params;
   try {
     const job = await deleteJob(employerId, id);
