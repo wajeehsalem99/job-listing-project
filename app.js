@@ -7,10 +7,14 @@ const app = express();
 const jobRoutes = require("./src/routes/jobRoutes");
 const bodyParser = require("body-parser");
 const apllicationRoutes = require("./src/routes/applicationRoute");
+const cookieParser=require('cookie-parser')
+const employerRoutes=require('./src/routes/employerRoutes');
+
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-
+app.use(cookieParser())
+app.use('/',employerRoutes);
 app.use("/jobs", jobRoutes);
 app.use("/apply", apllicationRoutes);
 
