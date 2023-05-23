@@ -10,12 +10,13 @@ Application.hasMany(Document, { as: "documents" });
 
 module.exports = () => {
   sequelize
-    .sync({ force: false })
+    .sync({ force: true })
     .then(async (result) => {
       const employer = await Employer.create({
         name: "laith",
         email: "laith@",
         phone: "05688484",
+        password:'123456',
       });
       employer.createJob({
         title: "job for a dentist ",
